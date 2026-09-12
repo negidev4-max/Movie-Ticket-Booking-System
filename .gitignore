@@ -1,0 +1,13 @@
+# Local build outputs
+movie_booking.exe
+*.exe
+*.o
+*.obj
+*.out
+build/
+
+# IDE and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,37 @@
+sequenceDiagram
+    actor Customer
+    participant ConsoleMenu
+    participant BookingService
+    participant Show
+    participant ShowSeat
+    participant PriceCalculator
+    participant TicketPrinter
+
+    Customer->>+ConsoleMenu: choose show, A1, and UPI
+    create participant Payment as UpiPayment
+    ConsoleMenu->>+Payment: <<create>> UpiPayment(true)
+    Payment-->>-ConsoleMenu: payment object
+    ConsoleMenu->>+BookingService: bookSeats(show, [A1], customer, payment)
+    BookingService->>+Show: findShowSeat("A1")
+    Show-->>-BookingService: showSeat
+    BookingService->>+ShowSeat: isAvailable()
+    ShowSeat-->>-BookingService: true
+    BookingService->>+PriceCalculator: calculate([showSeat])
+    PriceCalculator-->>-BookingService: 150.00
+
+    create participant Booking
+    BookingService->>+Booking: <<create>> Booking(show, customer, [A1], 150)
+    Booking-->>-BookingService: booking BK1001 (PENDING)
+    BookingService->>+ShowSeat: bookSeat()
+    ShowSeat-->>-BookingService: true
+
+    BookingService->>+Payment: pay(150.00)
+    Payment-->>-BookingService: true
+    BookingService->>+Booking: confirm("UPI")
+    Booking-->>-BookingService: status = CONFIRMED
+    BookingService->>+TicketPrinter: print(booking)
+    TicketPrinter-->>-BookingService: ticket printed
+    BookingService-->>-ConsoleMenu: confirmed booking + ticket
+    ConsoleMenu-->>-Customer: display confirmation and ticket
+
+    Note over BookingService,ShowSeat: If pay() returns false, releaseSeat() is called,<br/>Booking becomes FAILED, and no ticket is printed.

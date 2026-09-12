@@ -3,7 +3,6 @@
 **Course:** B.Tech CSE, Semester 5  
 **Subject:** System Design (TCS-504)  
 **Student name:** Abhishek Negi  
-**Roll number:** ____________________
 
 ## A. Requirement analysis
 

@@ -1,7 +1,7 @@
 # Movie Ticket Booking System
 
 **Student:** Abhishek Negi  
-**Roll number:** ____________________
+
 
 This is a menu-driven C++17 learning project for one cinema. It implements only the eight assignment features: list movies, list shows, display show-specific seat status, book seats atomically, calculate type-based prices, pay by UPI/Card/Cash, print a ticket, and cancel a booking while releasing its seats.
 
